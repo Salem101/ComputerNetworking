@@ -4,7 +4,7 @@ from socket import *
 import sys
 
 
-def webServer(port=13331):
+def webServer(port=13331, outputdata=None):
     serverSocket = socket(AF_INET, SOCK_STREAM)
     # Prepare a server socket
     serverSocket.bind(('',port))
@@ -30,8 +30,8 @@ def webServer(port=13331):
                 # Fill in end
 
                 # Send the content of the requested file to the client
-                for i in range(0, len(filename)):
-                    connectionSocket.send(filename[i].encode())
+                for i in range(0, len(outputdata)):
+                    connectionSocket.send(outputdata[i].encode())
 
                 connectionSocket.send("\r\n".encode())
                 connectionSocket.close()
@@ -49,8 +49,8 @@ def webServer(port=13331):
         except (ConnectionResetError, BrokenPipeError):
             pass
 
-    serverSocket.close()
-    sys.exit()  # Terminate the program after sending the corresponding data
+        serverSocket.close()
+           sys.exit()  # Terminate the program after sending the corresponding data
 
 
 if __name__ == "__main__":
