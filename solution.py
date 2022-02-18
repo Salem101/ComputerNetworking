@@ -7,29 +7,28 @@ import sys
 def webServer(port=13331):
     serverSocket = socket(AF_INET, SOCK_STREAM)
     # Prepare a server socket
-    serverSocket.bind(("", port))
+    serverSocket.bind((webServer(), port))
     # Fill in start
-    clientSocket.connect((webServer,port))
-    connectionSocket=serverSocket.accept()
-    clientSocket=socket()
-
+    serverSocket.listen()
     # Fill in end
 
     while True:
         # Establish the connection
         # print('Ready to serve...')
-        connectionSocket, addr = serverSocket.accept()  # Fill in start      #Fill in end
+        connectionSocket, addr = serverSocket.accept() # Fill in start
+        print(f"Connection from {addr} has been established.")
+        #Fill in end
         try:
 
             try:
-                message =connectionSocket.recv(1024) # Fill in start  #Fill in end
+                message = connectionSocket.recv(1024) # Fill in start    #Fill in end
                 filename = message.split()[1]
                 f = open(filename[1:])
-                outputdata = f.read()  # Fill in start     #Fill in end
+                outputdata = connectionSocket.sendto(message.encode(),(webServer,port))  # Fill in start  #Fill in end
 
                 # Send one HTTP header line into socket.
                 # Fill in start
-                okMessage = "HTTP/1.1 200 OK \r\n"
+                serverSocket.send(outputdata)
                 # Fill in end
 
                 # Send the content of the requested file to the client
@@ -41,7 +40,7 @@ def webServer(port=13331):
             except IOError:
         # Send response message for file not found (404)
         # Fill in start
-        sys.stdout.write(('404 not found!'))
+        sys.stdout.write("404 Not Found")
         # Fill in end
 
         # Close client socket
