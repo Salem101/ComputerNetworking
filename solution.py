@@ -38,15 +38,15 @@ def webServer(port=13331):
                 connectionSocket.send("\r\n".encode())
                 connectionSocket.close()
             except IOError:
-        # Send response message for file not found (404)
-        # Fill in start
-        serverSocket.send("404 Not Found")
-        # Fill in end
+                # Send response message for file not found (404)
+                # Fill in start
+                serverSocket.send("404 Not Found")
+                # Fill in end
 
-        # Close client socket
-        # Fill in start
-        connectionSocket.close()
-        # Fill in end
+                # Close client socket
+                # Fill in start
+                connectionSocket.close()
+                # Fill in end
 
         except (ConnectionResetError, BrokenPipeError):
             pass
