@@ -16,7 +16,6 @@ def webServer(port=13331):
         # Establish the connection
         # print('Ready to serve...')
         connectionSocket, addr = serverSocket.accept() # Fill in start
-        print(f"Connection from {addr} has been established.")
         #Fill in end
         try:
 
@@ -24,7 +23,6 @@ def webServer(port=13331):
                 message = connectionSocket.recv(1024) # Fill in start    #Fill in end
                 filename = message.split()[1]
                 f = open(filename[1:])
-                outputdata = connectionSocket.sendto(message.encode(),(webServer,port))  # Fill in start  #Fill in end
 
                 # Send one HTTP header line into socket.
                 # Fill in start
