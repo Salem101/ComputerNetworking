@@ -29,21 +29,21 @@ def smtp_client(port=1025, mailserver='127.0.0.1'):
 
     # Send MAIL FROM command and handle server response.
     # Fill in start
-    mailFromCommand = 'MAIL FROM:\r\n'
+    mailFromCommand = 'MAIL FROM:mail@nyu.edu'
     clientSocket.send(mailFromCommand.encode())
     recv2 = clientSocket.recv(1024).decode()
     # Fill in end
 
     # Send RCPT TO command and handle server response.
     # Fill in start
-    rcptCommand = 'RCPT TO: <forward-path>'
+    rcptCommand = 'RCPT TO: <student@nyu.edu>'
     clientSocket.send(rcptCommand.encode())
     recv3 = clientSocket.recv(1024).decode()
     # Fill in end
 
     # Send DATA command and handle server response.
     # Fill in start
-    data = '\r\n'
+    data = 'DATA\r\n'
     clientSocket.send(data.encode())
     recv4 = clientSocket.recv(1024).decode()
     # Fill in end
