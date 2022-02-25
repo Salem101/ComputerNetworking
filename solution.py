@@ -28,7 +28,7 @@ def smtp_client(port=1025, mailserver='127.0.0.1'):
 
     # Send MAIL FROM command and handle server response.
     # Fill in start
-    clientSocket.send('MAIL FROM: <mail@nyu.edu>\r\n').encode())
+    clientSocket.send('MAIL FROM: <mail@nyu.edu>\r\n'.encode())
     recv2 = clientSocket.recv(1024).decode()
     # print(recv2)
     # if recv2[:3] != '250':
