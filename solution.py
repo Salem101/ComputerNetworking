@@ -20,7 +20,7 @@ def smtp_client(port=1025, mailserver='127.0.0.1'):
 
     # Send HELO command and print server response.
     heloCommand = 'HELO Alice\r\n'
-    clientSocket.send(heloCommand)
+    clientSocket.send(heloCommand.encode())
     recv1 = clientSocket.recv(1024).decode()
     print(recv1)
     if recv1[:3] != '250':
@@ -28,7 +28,7 @@ def smtp_client(port=1025, mailserver='127.0.0.1'):
 
     # Send MAIL FROM command and handle server response.
     # Fill in start
-    clientSocket.send('MAIL FROM: <mail@nyu.edu>\r\n')
+    clientSocket.send('MAIL FROM: <mail@nyu.edu>\r\n'.encode())
     recv2 = clientSocket.recv(1024).decode()
     print(recv2)
     if recv2[:3] != '250':
@@ -37,7 +37,7 @@ def smtp_client(port=1025, mailserver='127.0.0.1'):
 
     # Send RCPT TO command and handle server response.
     # Fill in start
-    clientSocket.send('RCPT TO: <user@gmail.com>\r\n')
+    clientSocket.send('RCPT TO: <user@gmail.com>\r\n'.encode())
     recv3 = clientSocket.recv(1024).decode()
     print(recv3)
     if recv3[:3] != '250':
@@ -46,10 +46,10 @@ def smtp_client(port=1025, mailserver='127.0.0.1'):
 
     # Send DATA command and handle server response.
     # Fill in start
-    clientSocket.send('DATA\r\n')
+    clientSocket.send('DATA\r\n'.encode())
     recv = clientSocket.recv(1024).decode()
     if recv[3:] != '354':
-        print('354 reply not received from server.\r\n.\r\n')
+        print('354 reply not received from server.')
     # Fill in end
 
     # Send message data.
@@ -60,7 +60,7 @@ def smtp_client(port=1025, mailserver='127.0.0.1'):
 
     # Message ends with a single period, send message end and handle server response.
     # Fill in start
-    # clientSocket.send(endmsg.encode())
+    clientSocket.send(endmsg.encode())
     recv = clientSocket.recv(1024).decode()
     print(recv)
     if recv[:3] != '250':
@@ -69,7 +69,7 @@ def smtp_client(port=1025, mailserver='127.0.0.1'):
 
     # Send QUIT command and handle server response.
     # Fill in start
-    clientSocket.send('QUIT\r\n')
+    clientSocket.send('QUIT\r\n'.encode())
     clientSocket.close()
     # Fill in end
 
